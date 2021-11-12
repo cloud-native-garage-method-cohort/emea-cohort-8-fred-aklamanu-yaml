@@ -38,4 +38,3 @@ spec:
       workspaces:
         - name: shared-workspace
           workspace: pipeline-shared-data
-          
