@@ -1,22 +1,22 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata: 
+  generateName: tekton-yaml-lint-pipelinerun-
 spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:1.14.2
-        ports:
-        - containerPort: 80 
+  pipelineRef: 
+    name: tekton-yaml-lint
+  params:
+    - name: url 
+      value: https://github.com/cloud-native-garage-method-cohort/emea-cohort-8-fred-aklamanu-yaml
+  workspaces:
+    - name: shared-workspace
+      volumeClaimTemplate:
+        spec: 
+          resources:
+            requests:
+              storage: 1Gi
+          accessModes:
+            - ReadWriteOnce
 
+
+   
